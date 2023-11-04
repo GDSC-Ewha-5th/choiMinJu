@@ -36,7 +36,7 @@
         </li>
 
         <li style="width: 100px">
-          <a href="#"><btn class="new-posting">새 글 작성</btn></a>
+          <a href="/write"><btn class="new-posting">새 글 작성</btn></a>
         </li>
         <li style="width: 60px"><a href="#">프로필</a></li>
       </ul>
@@ -52,10 +52,91 @@
         <li class="select-order" onclick="fetchData('/run-recent', this)">
           <a href="/#">최신</a>
         </li>
+        <li class="dropdown">
+          <button onclick="toggleDropdown()">오늘</button>
+          <div class="dropdown-content" id="dropdownMenu">
+            <a href="#" onclick="selectOption('오늘')">오늘</a>
+            <a href="#" onclick="selectOption('이번주')">이번주</a>
+            <a href="#" onclick="selectOption('이번달')">이번달</a>
+            <a href="#" onclick="selectOption('올해')">올해</a>
+          </div>
+        </li>
       </ul>
     </nav>
     <div class="posting-container"></div>
+    <div id="myModal" class="modal">
+      <div class="modal-content">
+        <span class="close">&times;</span>
+        <img id="modal-image" src="" alt="Thumbnail" class="thumbnail-url" />
+        <h4 id="modal-title" class="title"></h4>
+        <div class="description-wrapper">
+          <p id="modal-description" class="description"></p>
+        </div>
+        <div class="sub-info">
+          <span id="modal-date" class="date"></span>
+          <span>|</span>
+          <span id="modal-comment-count" class="comment-count"></span>
+        </div>
+        <div class="userinfo">
+          <img
+            id="modal-user-profile"
+            src=""
+            alt="Profile"
+            class="author-profile-url"
+          />
+          <b id="modal-username" class="author-name"></b>
+        </div>
+        <div id="modal-likes" class="likes"></div>
+      </div>
+    </div>
+    <script>
+      document.addEventListener("DOMContentLoaded", function () {
+        const postData = localStorage.getItem("postData");
+        console.log(postData);
 
+        if (postData) {
+          const container = document.querySelector(".posting-container");
+          const data = JSON.parse(postData); // JSON 문자열을 객체로 변환
+
+          // 새로운 포스팅 카드 DOM 요소 생성
+          const card = document.createElement("div");
+          card.className = "posting-card";
+
+          // 포스팅 카드 내부 HTML 채우기
+          card.innerHTML = `
+          <img src="${data.image_url}" alt="Thumbnail for ${
+            data.title
+          }" class="thumbnail-url" />
+      <h4 class="title">${data.title}</h4>
+      <div class="description-wrapper">
+          <p class="description">${data.description || ""}</p>
+      </div>
+      <div class="sub-info">
+          <span class="date">${data.date}</span>
+          <span>|</span>
+          <span class="comment-count">댓글: ${
+            data.comment_count || "0"
+          }개</span>
+      </div>
+      <a href="#" class="userinfo">
+          <img src="${data.user_profile_url || "#"}" alt="Profile of ${
+            data.username
+          }" class="author-profile-url" />
+          <b class="author-name">${data.username}</b>
+      </a>
+      <div class="likes">${data.like_count || "0"} 좋아요</div>
+    `;
+
+          // 클릭 이벤트 리스너 추가
+          card.addEventListener("click", function () {
+            showModal(data);
+          });
+
+          // 포스팅 카드를 컨테이너에 추가
+          container.appendChild(card);
+        }
+      });
+    </script>
     <script src="{{ url_for('static', filename='script.js') }}"></script>
     <!--스크립트 위치도 중요함. 왜냐면 먼저 html 생성되고 그 안에 스크립트 요소들 넣어줘야 되는데 스크립트 먼저 실행시키면 queryselector가 못 찾아서 null 값으로 인식할 수도 있음-->
   </body>
