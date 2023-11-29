@@ -1,0 +1,267 @@
+/*아놔 플라스크 할 때는 캐시를 지우자. ㄹㅇ 스타일 계속 수정이 안돼서 잘못한 줄 알고 난리 쳤는데 캐시 안지워져서 그런 거였다*/
+body {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  margin: 0;
+  padding: 0;
+  background-color: #efefef;
+  color: #333;
+}
+
+nav {
+  display: flex;
+  justify-content: center;
+  width: 100%;
+  height: 50px;
+  padding: 20px 10%;
+  margin-bottom: 20px;
+}
+
+nav ul {
+  width: 100%;
+  display: flex;
+  flex-direction: row;
+  list-style-type: none;
+  margin: 0;
+  padding: 0;
+}
+
+nav li {
+  display: flex;
+}
+nav a {
+  text-decoration: none;
+  color: #333;
+}
+nav a:hover {
+  text-decoration: underline;
+}
+
+.new-posting {
+  border: solid 1px #333;
+  border-radius: 1rem;
+  padding: 5px 8px;
+  text-decoration: none;
+}
+.new-posting:hover {
+  background-color: black;
+  color: white;
+}
+
+.select-order {
+  color: #efefef;
+  width: 100px;
+  float: left;
+  font-size: 20px;
+  text-decoration: none;
+}
+
+.selected a {
+  font-weight: bold;
+  color: #333;
+}
+
+.posting-container {
+  display: flex;
+  width: 90%;
+  margin: 0 5%;
+  flex-wrap: wrap;
+  justify-content: center;
+}
+
+.posting-card {
+  display: block; /*너무 display: flex로 다 때려박아놓고 나중에 맞추는 경향이 있는데 다른 display 들도 써보자*/
+  border: 1px solid #e5e5e5;
+  max-width: 250px;
+  padding: 10px;
+  flex-basis: calc(33.333% - 20px);
+  margin: 10px;
+  border-radius: 10px;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+}
+
+@media (max-width: 768px) {
+  .posting-card {
+    min-width: 80% !important; /*min-width랑 width 작동이 사뭇 다름. 적절하게 쓰기*/
+  }
+}
+
+.thumbnail-url {
+  top: 0px;
+  left: 0px;
+  width: 100%;
+  height: 200px;
+  object-fit: cover; /*background-size랑 비슷한데 img 태그에서 쓰는 거! 기억하기*/
+  border-radius: 5px;
+}
+
+.title {
+  margin-top: 10px;
+  font-size: 18px;
+}
+
+.description-wrapper .description {
+  margin: 0px 0px 1.5rem;
+  word-break: break-word;
+  overflow-wrap: break-word;
+  font-size: 0.875rem;
+  line-height: 1.5;
+  height: 3.9375rem;
+  display: -webkit-box;
+  -webkit-line-clamp: 3;
+  -webkit-box-orient: vertical;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  color: var(--text2);
+}
+/*word-break: break-word; 및 overflow-wrap: break-word;: 긴 단어나 URL과 같은 텍스트 요소에서 줄 바꿈을 가능하게 합니다. 긴 단어가 화면에 맞지 않을 때 자동으로 줄 바꿈하도록 합니다.*/
+/*display: -webkit-box;, -webkit-line-clamp: 3;, -webkit-box-orient: vertical;: 웹킷(WebKit) 엔진을 사용하는 브라우저에서 다중 라인 텍스트를 표시하고 줄 수를 제한하는 데 사용됩니다. -webkit-line-clamp는 표시할 줄 수를 지정하며, -webkit-box-orient는 텍스트의 방향을 수직(vertical)으로 설정합니다.*/
+/*text-overflow: ellipsis;: 텍스트가 요소의 너비를 초과하는 경우, 텍스트가 생략 부호(ellipsis, ...)로 표시되도록 합니다.*/
+
+.sub-info {
+  margin-top: 10px;
+  display: flex;
+  align-items: center;
+
+  gap: 5px;
+}
+
+.userinfo {
+  display: flex;
+  align-items: center;
+  gap: 5px;
+  margin-top: 10px;
+  text-decoration: none;
+  color: inherit;
+}
+
+.author-profile-url {
+  width: 30px;
+  height: 30px;
+  border-radius: 50%;
+}
+
+.likes {
+  margin-top: 10px;
+  font-weight: bold;
+}
+
+.dropdown {
+  display: flex;
+  width: 100px;
+  border-radius: 20px;
+}
+.dropdown-content {
+  display: none;
+  position: absolute;
+  background-color: #f9f9f9;
+  min-width: 160px;
+  box-shadow: 0px 8px 16px 0px rgba(0, 0, 0, 0.2);
+  z-index: 1;
+  cursor: pointer;
+}
+.dropdown-content a {
+  color: black;
+  padding: 12px 16px;
+  text-decoration: none;
+  display: block;
+}
+.dropdown-content a:hover {
+  background-color: #f1f1f1;
+}
+.selected {
+  color: blue;
+}
+
+/*write.html*/
+
+.write-container {
+  max-width: 600px;
+  margin: 50px auto;
+  padding: 20px;
+  border: 1px solid #ccc;
+}
+
+.tags-input {
+  display: flex;
+  align-items: center;
+  width: 200px;
+}
+
+#tagInput {
+  flex: 1;
+  padding: 10px;
+  border: 1px solid #ccc;
+}
+
+.tags-list {
+  margin-top: 20px;
+}
+
+.tag {
+  display: inline-block;
+  padding: 5px 15px;
+  margin: 5px;
+  background-color: #e0e0e0;
+  color: #333;
+  cursor: pointer;
+  border-radius: 50px;
+  font-size: 12px;
+  border: 1px solid #c7c7c7;
+  position: relative;
+}
+
+.tag:before {
+  content: "x";
+  position: absolute;
+  top: 50%;
+  right: 5px;
+  transform: translateY(-50%);
+  font-size: 10px;
+  font-weight: bold;
+  color: #888;
+}
+
+/* 모달 창의 스타일 */
+.modal {
+  display: none; /* 초기에는 보이지 않음 */
+  position: fixed; /* 고정 위치 */
+  z-index: 2; /* 다른 요소들 위에 표시 */
+  left: 0;
+  top: 0;
+  width: 100%; /* 전체 너비 */
+  height: 100%; /* 전체 높이 */
+  overflow: auto; /* 필요시 스크롤 */
+  background-color: rgba(0, 0, 0, 0.4); /* 투명한 검정색 배경 */
+  justify-content: center;
+  align-items: center;
+}
+
+/* 모달 내용 스타일 */
+.modal-content {
+  background-color: #fefefe;
+  margin: 15% auto; /* 상위 요소에서 15% 마진 */
+  padding: 20px;
+  border: 1px solid #888;
+  width: 50%; /* 모달 너비 */
+  box-shadow: 0 5px 15px rgba(0, 0, 0, 0.5);
+  border-radius: 5px; /* 경계선 둥글게 */
+}
+
+/* 닫기 버튼 스타일 */
+.close {
+  color: #aaa;
+  position: absolute;
+  top: 10px;
+  right: 25px;
+  font-size: 35px;
+  font-weight: bold;
+}
+
+.close:hover,
+.close:focus {
+  color: black;
+  text-decoration: none;
+  cursor: pointer;
+}
